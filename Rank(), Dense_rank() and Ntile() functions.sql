@@ -16,7 +16,7 @@ INSERT INTO #Test( TestId, Value )
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*\
 | Example of Rank(), Dense_rank() and Ntile() functions
 | ------ ----- ------------ ------ ------------ --------
-| TestId Value Row_Number() RANK() DENSE_RANK() NTILE(3) /* 3 - means 3 equal-size groups */
+| TestId Value Row_Number() RANK() DENSE_RANK() NTILE(3) /* 3 - means 3 equal-cardinal groups */
 | ------ ----- ------------ ------ ------------ --------
 | 1      59.9  1            1      1            1
 | 1      79.0  2            1      1            1
