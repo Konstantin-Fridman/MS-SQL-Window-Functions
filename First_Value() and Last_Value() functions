@@ -27,7 +27,7 @@ INSERT INTO #Test( TestId, Value )
 | 2      56.6  5.7                    56.6                 95.9
 | 2      90.5  5.7                    90.5                 95.9
 | 2      95.9  5.7                    95.9                 95.9
-\*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+\*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
 	SELECT TestId
 		  ,Value
 		  ,FIRST_VALUE(Value) OVER (PARTITION BY TestId ORDER BY Value ROWS UNBOUNDED PRECEDING ) AS [ {FIRST_VALUE(Value)} ]
