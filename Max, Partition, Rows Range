@@ -3,7 +3,7 @@ SET NOCOUNT ON
 | Build demo data
 \*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 IF OBJECT_ID('tempdb..#Test') IS NOT NULL
-    DROP TABLE #Test
+    DROP TABLE #Test 
 
 CREATE TABLE #Test( TestId INT, Value DECIMAL(3,1))
 
