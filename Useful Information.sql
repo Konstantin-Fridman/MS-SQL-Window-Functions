@@ -1,15 +1,14 @@
--- Useful information:
-
--- Fake the number of CPUs ( for an execution plan only ) 
-
-DBCC OPTIMIZER_WHATIF(1, 64) --! 
-
-SELECT top 
-	   actid,
-       tranid,
-       val,
-       Ntile(100)         OVER(           PARTITION BY actid           ORDER BY val) AS rownum
-FROM   dbo.Transactions 
-OPTION(RECOMPILE) --!
-
-
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*\
+ Always use the `ROWS BETWEEN` window :
+	RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+ This flow is slowly then:
+	ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+\*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+-- Remark: The window definition should be unique
+   SELECT actid,
+		  /*Bad:*/ Sum(val) OVER( PARTITION BY actid ORDER BY tranid) AS balance
+	   -- SQL automatically uses this form:
+	   -- /*Bad:*/ Sum(val) OVER( PARTITION BY actid ORDER BY tranid RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS balance
+	   -- We should use this form:
+	   -- /*OK:*/ Sum(val) OVER( PARTITION BY actid ORDER BY tranid ROW /*!!NB!!*/ BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS balance
+    FROM dbo.Transactions; 
